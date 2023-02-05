@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     //creating user
-    @PostMapping("/create")
+    @PostMapping("/")
     public User createUser(@RequestBody User user) throws Exception {
 
         Set<UserRole> roles = new HashSet<>();
@@ -35,6 +35,11 @@ public class UserController {
 
         return this.userService.createUser(user, roles);
 
+    }
+
+    @GetMapping("/{username}")
+    public User getUser(@PathVariable("username") String username){
+        return this.userService.getUser(username);
     }
 
 }
