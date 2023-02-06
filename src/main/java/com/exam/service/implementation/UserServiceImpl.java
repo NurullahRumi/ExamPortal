@@ -45,4 +45,23 @@ public class UserServiceImpl implements UserService {
     public User getUser(String username) {
         return this.userRepository.findByUserName(username);
     }
+
+    @Override
+    public void deleteUser(Long userId) {
+        this.userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        User existingUser = userRepository.findById(user.getId()).orElse(null);
+        existingUser.setUserName(user.getUserName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setFName(user.getFName());
+        existingUser.setLName(user.getLName());
+        existingUser.setProfile(user.getProfile());
+        existingUser.setPhone(user.getPhone());
+        existingUser.setUserRoles(user.getUserRoles());
+        return userRepository.save(existingUser);
+    }
 }
